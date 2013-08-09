@@ -1,7 +1,8 @@
 
 
 class Book
-  attr_accessor :title
+  
+  attr_reader :shelf , :title
 
   def initialize(title)
     @title = title
@@ -11,8 +12,8 @@ class Book
     @shelf = shelf
   end
 
-  def shelf
-    @shelf
+  def unshelf
+    @shelf = nil
   end
 end
 

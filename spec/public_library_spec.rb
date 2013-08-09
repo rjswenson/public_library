@@ -8,12 +8,7 @@ describe 'Book(class)' do
 end
 
 describe '#title within Book' do
-  it 'receives and processes #title' do
-    test_book = Book.new("")
-    test_book.title = "foo"
-    expect(test_book.title).to eq("foo")
-  end
-  it 'alternatively stores a #title' do
+  it 'stores a #title' do
     test_book = Book.new("bar")
     expect(test_book.title).to eq("bar")
   end
@@ -27,6 +22,16 @@ describe '#enshelf within Book' do
     expect(test_book.shelf).to eq(sample_shelf)
   end
 end
+
+describe '#unshelf within Book' do
+  it 'removes shelf from Book properties' do
+    test_book = Book.new("Sweet Book")
+    sample_shelf = Shelf.new
+    test_book.unshelf
+    expect(test_book.shelf).to eq(nil)
+  end
+end
+
 
     
 
