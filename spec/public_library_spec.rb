@@ -66,3 +66,21 @@ describe '#unshelf removes book from shelf' do
   end
 end
 
+describe 'Library' do 
+  it 'explicitly stores shelves' do
+    lib = Library.new
+    shelf_a = Shelf.new
+    expect(lib.shelves(shelf_a)).to include(shelf_a)
+  end
+  it 'stores multiple shelves' do
+    lib = Library.new
+    shelf_b = Shelf.new
+    shelf_a = Shelf.new
+    lib.shelves(shelf_b)
+    lib.shelves(shelf_a)
+    expect(lib.all_shelves).to include(shelf_b, shelf_a)
+  end
+
+end
+
+

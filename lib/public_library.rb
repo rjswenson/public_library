@@ -32,8 +32,8 @@ class Shelf
   attr_reader :books_on_shelf
 
   def initialize
-  
   end
+
   def remove_book(book)
     @books_on_shelf.delete(book)
   end
@@ -44,3 +44,37 @@ class Shelf
 
   end
 end
+
+
+
+
+class Library
+  attr_reader :all_shelves
+  
+  def initialize
+  
+  end
+
+  def shelves(shelf) 
+    @all_shelves = [] if !@all_shelves
+    @all_shelves.push(shelf)
+  end
+
+
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
