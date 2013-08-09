@@ -1,9 +1,7 @@
 
 
 class Book
-  
   attr_reader :title 
-  
   
   def initialize(title)
     @title = title
@@ -41,7 +39,6 @@ class Shelf
   def add_book(book)
     @books_on_shelf = [] if !@books_on_shelf
     @books_on_shelf.push(book) 
-
   end
 end
 

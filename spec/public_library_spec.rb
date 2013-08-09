@@ -64,6 +64,34 @@ describe '#unshelf removes book from shelf' do
     book_a.unshelf
     expect(shelf_a.books_on_shelf).not_to include(book_a)
   end
+
+  it 'removes a book from a shelf, after others have been added' do
+    book_a = Book.new("Test")
+    book_b = Book.new("Spongebob")
+    shelf_a = Shelf.new
+    book_a.enshelf(shelf_a)
+    book_b.enshelf(shelf_a)
+    book_a.unshelf
+    expect(shelf_a.books_on_shelf).not_to include(book_a)
+  end
+
+  it 'can handle multiple shelf changes' do
+    book_a = Book.new("Test")
+    book_b = Book.new("Spongebob")
+    book_c = Book.new("Something")
+    book_d = Book.new("Game of Thrones")
+    shelf_a = Shelf.new
+
+    book_a.enshelf(shelf_a)
+    book_b.enshelf(shelf_a)
+    book_a.unshelf
+    book_c.enshelf(shelf_a)
+    book_a.enshelf(shelf_a)
+    book_b.unshelf
+    book_d.enshelf(shelf_a)
+    expect(shelf_a.books_on_shelf).to include(book_a, book_c, book_d)
+    expect(shelf_a.books_on_shelf).to_not include(book_b)
+  end
 end
 
 describe 'Library' do 
