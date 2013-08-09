@@ -27,8 +27,9 @@ describe '#unshelf within Book' do
   it 'removes shelf from Book properties' do
     test_book = Book.new("Sweet Book")
     sample_shelf = Shelf.new
+    test_book.enshelf(sample_shelf)
     test_book.unshelf
-    expect(test_book.shelf).to eq(nil)
+    expect(sample_shelf.books_on_shelf).to_not include(test_book)
   end
 end
 
@@ -39,9 +40,29 @@ describe '#enshelf' do
     shelf_a = Shelf.new
     shelf_b = Shelf.new
     test_book.enshelf(shelf_a)
-    expect(test_book.enshelf(shelf_b)).to eq("The book is already on a shelf!")
+
+    expect(test_book.enshelf(shelf_b)).to raise_error
   end
 end
 
+describe '#enshelfing more then one book on the same shelf' do 
+  it 'shows more then one book on the shelf' do
+    book_a = Book.new("Meyow")
+    book_b = Book.new("Mix")
+    shelf_a = Shelf.new
+    book_a.enshelf(shelf_a)
+    book_b.enshelf(shelf_a)
+    expect(shelf_a.books_on_shelf).to eq([book_a, book_b])
+  end
+end
     
+describe '#unshelf removes book from shelf' do
+  it 'removes a book already on shelf' do
+    book_a = Book.new("Test")
+    shelf_a = Shelf.new
+    book_a.enshelf(shelf_a)
+    book_a.unshelf
+    expect(shelf_a.books_on_shelf).not_to include(book_a)
+  end
+end
 

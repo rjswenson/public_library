@@ -2,23 +2,28 @@
 
 class Book
   
-  attr_reader :shelf , :title
-  @@shelf_counter = 0
+  attr_reader :title 
+  
+  
   def initialize(title)
     @title = title
   end
 
   def enshelf(shelf)
-    @@shelf_counter += 1
-    if @@shelf_counter > 1
-      "The book is already on a shelf!"
-    else
+    if shelf.books_on_shelf == nil || shelf.books_on_shelf.include?(self) == false
+      @shelf = shelf
       shelf.add_book(self)
+    else
+      raise "The book is already on a shelf!"
     end
   end
 
   def unshelf
-    @shelf = nil
+    if @shelf.books_on_shelf != nil && @shelf.books_on_shelf.include?(self) == true
+      @shelf.remove_book(self)
+    else
+      raise "That book is not on a shelf!"
+    end      
   end
 end
 
@@ -29,8 +34,13 @@ class Shelf
   def initialize
   
   end
+  def remove_book(book)
+    @books_on_shelf.delete(book)
+  end
 
   def add_book(book)
-    @books_on_shelf = [book]
+    @books_on_shelf = [] if !@books_on_shelf
+    @books_on_shelf.push(book) 
+
   end
 end
