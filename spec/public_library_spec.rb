@@ -43,8 +43,7 @@ describe '#enshelf' do
     shelf_a = Shelf.new(library_ex)
     shelf_b = Shelf.new(library_ex)
     test_book.enshelf(shelf_a)
-
-    expect(test_book.enshelf(shelf_b)).to raise_error
+    expect {test_book.enshelf(shelf_b)}.to raise_error
   end
 end
 

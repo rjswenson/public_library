@@ -9,7 +9,7 @@ class Book
   end
 
   def enshelf(shelf)
-    if shelf.books == nil || shelf.books.include?(self) == false      #attaches a book to a shelf if not already done so
+    if @library.unshelved_books.include?(@title) == true      #attaches a book to a shelf if not already done so
       @shelf = shelf
       shelf.add_book(self)     #adds instance of Book (ie self) to the shelf class instance passed in as an argument
       @library.unshelved(@title, false)
@@ -19,7 +19,7 @@ class Book
   end
 
   def unshelf
-    if @shelf.books != nil && @shelf.books.include?(self) == true     #removes book if it is indeed on a shelf
+    if @library.unshelved_books.include?(@title) == false     #removes book if it is indeed on a shelf
       @shelf.remove_book(self)
       @library.unshelved(@title, true)
     else
@@ -48,7 +48,7 @@ end
 
 
 class Library
-  attr_reader :shelves
+  attr_reader :shelves, :unshelved_books
   
   def initialize
     @shelves = []
