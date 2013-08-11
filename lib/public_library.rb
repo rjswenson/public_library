@@ -4,24 +4,24 @@ class Book
   def initialize(title, library)
     @title = title
     @library = library
-    @library.unshelved(@title, true)
+    @library.unshelved(self, true)
 
   end
 
   def enshelf(shelf)
-    if @library.unshelved_books.include?(@title) == true      #attaches a book to a shelf if not already done so
+    if @library.unshelved_books.include?(self) == true      #attaches a book to a shelf if not already done so
       @shelf = shelf
       shelf.add_book(self)     #adds instance of Book (ie self) to the shelf class instance passed in as an argument
-      @library.unshelved(@title, false)
+      @library.unshelved(self, false)
     else
       raise "The book is already on a shelf!"      #raises exception if book is already on a shelf
     end
   end
 
   def unshelf
-    if @library.unshelved_books.include?(@title) == false     #removes book if it is indeed on a shelf
+    if @library.unshelved_books.include?(self) == false     #removes book if it is indeed on a shelf
       @shelf.remove_book(self)
-      @library.unshelved(@title, true)
+      @library.unshelved(self, true)
     else
       raise "That book is not on a shelf!"
     end      
@@ -52,7 +52,6 @@ class Library
   
   def initialize
     @shelves = []
-    @all_books = []
     @unshelved_books = []
     @shelved_books = []
   end
@@ -62,9 +61,9 @@ class Library
   end
 
   def shelved
-    @shelves.each do |x|                                   #for each shelf
-      x.books.each do |y|                                  #examine each book on said shelf
-        @shelved_books = @shelved_books.push(y.title)      #and push its title to the @all_books array
+    @shelves.each do |shlf|                                   #for each shelf
+      shlf.books.each do |bk|                                  #examine each book on said shelf
+        @shelved_books.push(bk)      #and push its title to the @all_books array
       end
     end
     @shelved_books
@@ -76,7 +75,6 @@ class Library
   end
 
   def all_books
-   @all_books = @shelved_books | @unshelved_books          #adds all the books together
-   @all_books.flatten.sort                                 #sorts alphabetically
+   @shelved_books + @unshelved_books                     #adds all the books together
   end
 end

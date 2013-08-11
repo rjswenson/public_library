@@ -126,7 +126,7 @@ describe 'Library' do
     c_book = Book.new("Cookies!", library_ex)
     a_book.enshelf(a_f_shelf)
     c_book.enshelf(a_f_shelf)
-    expect(library_ex.shelved).to eq(["Allibaster", "Cookies!"])
+    expect(library_ex.shelved).to include(a_book, c_book)
   end
 
   it 'displays all the books on 2 shelves' do
@@ -137,7 +137,7 @@ describe 'Library' do
     z_book = Book.new("Zebras", library_ex)
     f_book.enshelf(a_f_shelf)
     z_book.enshelf(g_z_shelf)
-    expect(library_ex.shelved).to eq(["Frankenstein", "Zebras"])
+    expect(library_ex.shelved).to include(f_book, z_book)
   end
 
   it 'is aware of all the shelves within it' do
@@ -174,7 +174,7 @@ describe 'Shows total books' do
     book_c = Book.new("Ex", lib)
     book_c.enshelf(shelf)
     lib.shelved
-    expect(lib.all_books).to eq(["Apple", "Ex", "Jolly"])
+    expect(lib.all_books). to include(book_b, book_c, book_a)
   end
 end
 
